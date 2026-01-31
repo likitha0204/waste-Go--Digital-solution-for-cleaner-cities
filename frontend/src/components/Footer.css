@@ -1,0 +1,93 @@
+.footer {
+  background-color: var(--card-bg);
+  padding: 15px 0;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo {
+  height: 30px;
+}
+
+.footer-title {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.footer-slogan {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-left: 1px solid #ccc;
+  padding-left: 10px;
+}
+
+.footer-copyright {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.footer-contact {
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .footer {
+    padding-bottom: 90px; /* Space for HelperBot/Floating Buttons on mobile */
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center; /* Center align everything */
+    text-align: center;
+    gap: 15px;
+  }
+
+  .footer-brand {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .footer-slogan {
+    border-left: none; /* Remove separator on stack */
+    padding-left: 0;
+  }
+
+  .footer-contact {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+}
