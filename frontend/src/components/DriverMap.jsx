@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet-routing-machine'; // Import Routing Logic
 import io from 'socket.io-client';
+import API_URL from '../config';
 
 // Fix Leaflet Default Icon Issue
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -103,7 +104,7 @@ const DriverMap = ({ schedules, driverId, socket: propSocket }) => {
     useEffect(() => {
         if (!propSocket) {
             // Connect Socket only if not provided
-            const newSocket = io('http://localhost:5000');
+            const newSocket = io(API_URL);
             setLocalSocket(newSocket);
             return () => newSocket.disconnect();
         }

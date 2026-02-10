@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getToken } from '../utils/auth';
+import API_URL from '../config';
 
 const AdminComplaintView = ({ pendingCount = 0, onUpdate }) => {
   const [complaints, setComplaints] = useState([]);
@@ -12,8 +13,8 @@ const AdminComplaintView = ({ pendingCount = 0, onUpdate }) => {
     try {
       const token = getToken();
       const [cRes, dRes] = await Promise.all([
-        fetch('http://localhost:5000/api/complaints/all', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('http://localhost:5000/api/auth/drivers', { headers: { Authorization: `Bearer ${token}` } })
+        fetch(`${API_URL}/api/complaints/all`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/auth/drivers`, { headers: { Authorization: `Bearer ${token}` } })
       ]);
 
       const cData = await cRes.json();
@@ -41,7 +42,7 @@ const AdminComplaintView = ({ pendingCount = 0, onUpdate }) => {
   const assignDriver = async (complaintId, driverId) => {
     try {
       const token = getToken();
-      const response = await fetch(`http://localhost:5000/api/complaints/${complaintId}/assign`, {
+      const response = await fetch(`${API_URL}/api/complaints/${complaintId}/assign`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -119,7 +120,7 @@ const AdminComplaintView = ({ pendingCount = 0, onUpdate }) => {
                       e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
-                      {c.image && <img src={`http://localhost:5000/${c.image}`} style={{ width: '70px', height: '70px', borderRadius: '12px', objectFit: 'cover', boxShadow: '0 2px 6px rgba(0,0,0,0.1)' }} alt="issue" />}
+                      {c.image && <img src={`${API_URL}/${c.image}`} style={{ width: '70px', height: '70px', borderRadius: '12px', objectFit: 'cover', boxShadow: '0 2px 6px rgba(0,0,0,0.1)' }} alt="issue" />}
                       <div style={{ flex: 1, paddingRight: '15px' }}>
                           <p style={{ margin: '0 0 8px 0', fontWeight: '600', fontSize: '1rem' }}>{c.description}</p>
                           <p style={{ margin: 0, fontSize: '0.85rem', color: '#666', display: 'flex', alignItems: 'center', gap: '5px' }}>
@@ -214,7 +215,7 @@ const AdminComplaintView = ({ pendingCount = 0, onUpdate }) => {
                     borderRadius: '8px',
                     marginBottom: '6px'
                   }}>
-                      {c.image && <img src={`http://localhost:5000/${c.image}`} style={{ width: '60px', height: '60px', borderRadius: '10px', objectFit: 'cover', filter: 'grayscale(80%)', opacity: 0.8 }} alt="issue" />}
+                      {c.image && <img src={`${API_URL}/${c.image}`} style={{ width: '60px', height: '60px', borderRadius: '10px', objectFit: 'cover', filter: 'grayscale(80%)', opacity: 0.8 }} alt="issue" />}
                       <div style={{ flex: 1 }}>
                           <p style={{ margin: '0 0 5px 0', fontWeight: '600', textDecoration: 'line-through', color: '#666', fontSize: '0.95rem' }}>{c.description}</p>
                           <p style={{ margin: 0, fontSize: '0.8rem', color: '#888' }}>📍 {c.address}</p>

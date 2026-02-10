@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiMapPin } from 'react-icons/fi';
 import { getToken, getUser } from '../utils/auth';
+import API_URL from '../config';
 import WasteClassifier from './WasteClassifier';
 
 const ScheduleForm = ({ onScheduleCreated }) => {
@@ -78,7 +79,7 @@ const ScheduleForm = ({ onScheduleCreated }) => {
 
     try {
       const token = getToken();
-      const response = await fetch('http://localhost:5000/api/schedules', {
+      const response = await fetch(`${API_URL}/api/schedules`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

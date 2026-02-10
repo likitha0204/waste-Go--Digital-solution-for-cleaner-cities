@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { getToken } from '../utils/auth';
+import API_URL from '../config';
 import { FiPieChart, FiTrash2, FiLoader, FiCheckCircle, FiAlertTriangle, FiFileText, FiCheckSquare } from 'react-icons/fi';
 
 const AnalyticsBoard = () => {
@@ -13,8 +14,8 @@ const AnalyticsBoard = () => {
             try {
                 const token = getToken();
                 const [sRes, cRes] = await Promise.all([
-                    fetch('http://localhost:5000/api/schedules/analytics', { headers: { Authorization: `Bearer ${token}` } }),
-                    fetch('http://localhost:5000/api/complaints/analytics', { headers: { Authorization: `Bearer ${token}` } })
+                    fetch(`${API_URL}/api/schedules/analytics`, { headers: { Authorization: `Bearer ${token}` } }),
+                    fetch(`${API_URL}/api/complaints/analytics`, { headers: { Authorization: `Bearer ${token}` } })
                 ]);
                 
                 const sData = await sRes.json();

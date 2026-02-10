@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { saveAuth } from '../utils/auth';
+import API_URL from '../config';
 import { FiUser, FiLayout, FiTruck, FiShield, FiMail, FiLock, FiPhone, FiMapPin } from 'react-icons/fi';
 
 const Register = () => {
@@ -38,7 +39,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

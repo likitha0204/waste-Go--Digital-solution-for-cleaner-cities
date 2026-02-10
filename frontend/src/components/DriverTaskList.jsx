@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getToken, getUser } from '../utils/auth';
+import API_URL from '../config';
 import { FiMapPin, FiUser, FiCalendar, FiMap, FiCheck, FiCheckCircle, FiClock, FiTruck, FiCheckSquare } from 'react-icons/fi';
 
 const DriverTaskList = ({ schedules = [], complaints = [], onUpdate, viewMode = 'active', socket }) => {
@@ -44,7 +45,7 @@ const DriverTaskList = ({ schedules = [], complaints = [], onUpdate, viewMode = 
       const endpoint = type === 'pickup' ? `/api/schedules/${id}/status` : `/api/complaints/${id}/status`;
       console.log(`Updating ${type} ${id} to ${status}`);
       
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
+      const response = await fetch(`${API_URL}${endpoint}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

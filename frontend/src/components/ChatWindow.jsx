@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './ChatWindow.css';
+import API_URL from '../config';
 import { FiMessageSquare, FiSend } from 'react-icons/fi';
 
 const ChatWindow = ({ socket, username, room, currentUserId, broadcast = false, chatTitle }) => {
@@ -49,7 +50,7 @@ const ChatWindow = ({ socket, username, room, currentUserId, broadcast = false, 
             if (!token) return;
 
             const roomStr = String(room);
-            const response = await fetch(`http://localhost:5000/api/messages/${roomStr}`, {
+            const response = await fetch(`${API_URL}/api/messages/${roomStr}`, {
                  headers: { Authorization: `Bearer ${token}` }
             });
             

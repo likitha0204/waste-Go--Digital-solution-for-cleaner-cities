@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FiMapPin } from 'react-icons/fi';
 import { getToken } from '../utils/auth';
+import API_URL from '../config';
 import WasteClassifier from './WasteClassifier';
 
 const ComplaintForm = ({ onComplaintCreated }) => {
@@ -66,7 +67,7 @@ const ComplaintForm = ({ onComplaintCreated }) => {
 
     try {
       const token = getToken();
-      const response = await fetch('http://localhost:5000/api/complaints', {
+      const response = await fetch(`${API_URL}/api/complaints`, {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${token}`,

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getToken } from '../utils/auth';
+import API_URL from '../config';
 import { FiCalendar, FiX } from 'react-icons/fi';
 
 const ScheduleList = ({ refreshTrigger, taskEtas = {} }) => {
@@ -18,7 +19,7 @@ const ScheduleList = ({ refreshTrigger, taskEtas = {} }) => {
     setLoading(true);
     try {
       const token = getToken();
-      const response = await fetch('http://localhost:5000/api/schedules/my-schedules', {
+      const response = await fetch(`${API_URL}/api/schedules/my-schedules`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -71,7 +72,7 @@ const ScheduleList = ({ refreshTrigger, taskEtas = {} }) => {
 
     try {
         const token = getToken();
-        const response = await fetch(`http://localhost:5000/api/schedules/${selectedSchedule._id}/reschedule`, {
+        const response = await fetch(`${API_URL}/api/schedules/${selectedSchedule._id}/reschedule`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

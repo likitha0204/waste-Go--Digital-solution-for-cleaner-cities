@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { logout, getUser, getToken } from '../../utils/auth';
+import API_URL, { MQTT_URL } from '../../config';
 import { FiCheckCircle } from 'react-icons/fi';
 import AdminScheduleView from '../../components/AdminScheduleView';
 import AdminComplaintView from '../../components/AdminComplaintView';
@@ -45,7 +46,7 @@ const AdminDashboard = () => {
           const token = getToken();
           
           // 1. Create Schedule Task
-          const scheduleRes = await fetch('http://localhost:5000/api/schedules', {
+          const scheduleRes = await fetch(`${API_URL}/api/schedules`, {
               method: 'POST',
               headers: { 
                   'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ const AdminDashboard = () => {
           const scheduleData = await scheduleRes.json();
 
           // 2. Assign Driver
-          const assignRes = await fetch(`http://localhost:5000/api/schedules/${scheduleData._id}/assign`, {
+          const assignRes = await fetch(`${API_URL}/api/schedules/${scheduleData._id}/assign`, {
               method: 'PUT',
               headers: { 
                   'Content-Type': 'application/json',
@@ -99,7 +100,7 @@ const AdminDashboard = () => {
 
 
   useEffect(() => {
-    const newSocket = io.connect('http://localhost:5000');
+    const newSocket = io.connect(API_URL);
     setSocket(newSocket);
     return () => newSocket.disconnect();
   }, []);
@@ -109,7 +110,7 @@ const AdminDashboard = () => {
   // MQTT Connection for Sensor Alerts
   useEffect(() => {
     // Force MQTT 3.1.1 (protocolVersion 4)
-    const client = mqtt.connect('ws://localhost:8888', {
+    const client = mqtt.connect(MQTT_URL, {
         protocolVersion: 4
     });
 
@@ -149,7 +150,7 @@ const AdminDashboard = () => {
   const fetchDrivers = async () => {
       try {
           const token = getToken();
-          const response = await fetch('http://localhost:5000/api/auth/drivers', {
+          const response = await fetch(`${API_URL}/api/auth/drivers`, {
               headers: { Authorization: `Bearer ${token}` },
           });
           const data = await response.json();
@@ -163,8 +164,8 @@ const AdminDashboard = () => {
       try {
           const token = getToken();
           const [schedulesRes, complaintsRes] = await Promise.all([
-              fetch('http://localhost:5000/api/schedules/all', { headers: { Authorization: `Bearer ${token}` } }),
-              fetch('http://localhost:5000/api/complaints/all', { headers: { Authorization: `Bearer ${token}` } })
+              fetch(`${API_URL}/api/schedules/all`, { headers: { Authorization: `Bearer ${token}` } }),
+              fetch(`${API_URL}/api/complaints/all`, { headers: { Authorization: `Bearer ${token}` } })
           ]);
           
           if (schedulesRes.ok) {
@@ -427,7 +428,7 @@ const AdminDashboard = () => {
                                                       const updateDriver = async () => {
                                                           try {
                                                               const token = getToken();
-                                                              const res = await fetch(`http://localhost:5000/api/auth/users/${driver._id}`, {
+                                                              const res = await fetch(`${API_URL}/api/auth/users/${driver._id}`, {
                                                                   method: 'PUT',
                                                                   headers: { 
                                                                       'Content-Type': 'application/json',

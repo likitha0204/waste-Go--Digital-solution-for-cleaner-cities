@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getToken } from '../utils/auth';
+import API_URL from '../config';
 
 const AdminScheduleView = ({ pendingCount = 0, onUpdate }) => {
   const [schedules, setSchedules] = useState([]);
@@ -12,8 +13,8 @@ const AdminScheduleView = ({ pendingCount = 0, onUpdate }) => {
     try {
       const token = getToken();
       const [sRes, dRes] = await Promise.all([
-          fetch('http://localhost:5000/api/schedules/all', { headers: { Authorization: `Bearer ${token}` } }),
-          fetch('http://localhost:5000/api/auth/drivers', { headers: { Authorization: `Bearer ${token}` } })
+          fetch(`${API_URL}/api/schedules/all`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`${API_URL}/api/auth/drivers`, { headers: { Authorization: `Bearer ${token}` } })
       ]);
       
       const sData = await sRes.json();
@@ -39,7 +40,7 @@ const AdminScheduleView = ({ pendingCount = 0, onUpdate }) => {
   const assignDriver = async (scheduleId, driverId) => {
       try {
           const token = getToken();
-          const response = await fetch(`http://localhost:5000/api/schedules/${scheduleId}/assign`, {
+          const response = await fetch(`${API_URL}/api/schedules/${scheduleId}/assign`, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
               body: JSON.stringify({ driverId })

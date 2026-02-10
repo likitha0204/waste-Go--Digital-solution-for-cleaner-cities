@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getToken, getUser } from '../../utils/auth';
+import API_URL from '../../config';
 import DriverTaskList from '../../components/DriverTaskList';
 import ChatWindow from '../../components/ChatWindow';
 import io from 'socket.io-client';
@@ -23,7 +24,7 @@ const DriverDashboard = () => {
     try {
         const token = getToken();
         if (!token) return;
-        const res = await fetch('http://localhost:5000/api/auth/me', {
+        const res = await fetch(`${API_URL}/api/auth/me`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) {
@@ -43,8 +44,8 @@ const DriverDashboard = () => {
       const token = getToken();
       
       const [sRes, cRes] = await Promise.all([
-        fetch('http://localhost:5000/api/schedules/driver-tasks', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('http://localhost:5000/api/complaints/driver-tasks', { headers: { Authorization: `Bearer ${token}` } })
+        fetch(`${API_URL}/api/schedules/driver-tasks`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${API_URL}/api/complaints/driver-tasks`, { headers: { Authorization: `Bearer ${token}` } })
       ]);
 
       if (sRes.ok) setSchedules(await sRes.json());
@@ -62,7 +63,7 @@ const DriverDashboard = () => {
   }, [refreshTrigger]);
 
   useEffect(() => {
-     const newSocket = io.connect('http://localhost:5000');
+     const newSocket = io.connect(API_URL);
      setSocket(newSocket);
 
      newSocket.on('connect', () => {

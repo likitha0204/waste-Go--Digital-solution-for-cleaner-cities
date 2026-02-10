@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { logout, getUser, getToken } from '../../utils/auth';
+import API_URL from '../../config';
 import ScheduleForm from '../../components/ScheduleForm';
 import ScheduleList from '../../components/ScheduleList';
 import ComplaintForm from '../../components/ComplaintForm';
@@ -34,7 +35,7 @@ const UserDashboard = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-     const newSocket = io('http://localhost:5000');
+     const newSocket = io(API_URL);
      setSocket(newSocket);
      
      if (user) {
@@ -88,13 +89,13 @@ const UserDashboard = () => {
       const token = getToken();
       
       // Fetch schedules
-      const schedulesRes = await fetch('http://localhost:5000/api/schedules/my-schedules', {
+      const schedulesRes = await fetch(`${API_URL}/api/schedules/my-schedules`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const schedulesData = await schedulesRes.json();
       
       // Fetch complaints
-      const complaintsRes = await fetch('http://localhost:5000/api/complaints/my-complaints', {
+      const complaintsRes = await fetch(`${API_URL}/api/complaints/my-complaints`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const complaintsData = await complaintsRes.json();

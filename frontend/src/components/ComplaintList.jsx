@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getToken } from '../utils/auth';
+import API_URL from '../config';
 
 
 const ComplaintList = ({ refreshTrigger }) => {
@@ -11,7 +12,7 @@ const ComplaintList = ({ refreshTrigger }) => {
     setLoading(true);
     try {
       const token = getToken();
-      const response = await fetch('http://localhost:5000/api/complaints/my-complaints', {
+      const response = await fetch(`${API_URL}/api/complaints/my-complaints`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,7 +55,7 @@ const ComplaintList = ({ refreshTrigger }) => {
                             <p><small>Status: <span style={{ color: complaint.status === 'Resolved' ? 'green' : 'orange' }}>{complaint.status}</span></small></p>
                             {complaint.image && (
                                 <img 
-                                    src={`http://localhost:5000/${complaint.image}`} 
+                                    src={`${API_URL}/${complaint.image}`} 
                                     alt="Complaint" 
                                     style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '5px', borderRadius: '8px' }} 
                                 />

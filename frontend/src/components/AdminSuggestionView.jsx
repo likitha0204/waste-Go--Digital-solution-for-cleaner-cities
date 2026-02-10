@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getToken } from '../utils/auth';
+import API_URL from '../config';
 
 const AdminSuggestionView = () => {
   const [suggestions, setSuggestions] = useState([]);
@@ -9,7 +10,7 @@ const AdminSuggestionView = () => {
     const fetchSuggestions = async () => {
       try {
         const token = getToken();
-        const response = await fetch('http://localhost:5000/api/suggestions', {
+        const response = await fetch(`${API_URL}/api/suggestions`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

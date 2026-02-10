@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import mqtt from 'mqtt';
+import { MQTT_URL } from '../config';
 import { FiActivity, FiWifi, FiWifiOff, FiTrash2 } from 'react-icons/fi';
 
 const SensorSimulator = () => {
@@ -13,7 +14,7 @@ const SensorSimulator = () => {
 
     useEffect(() => {
         // Force MQTT 3.1.1 (protocolVersion 4) to ensure Aedes compatibility
-        const mqttClient = mqtt.connect('ws://localhost:8888', {
+        const mqttClient = mqtt.connect(MQTT_URL, {
             protocolVersion: 4
         });
 

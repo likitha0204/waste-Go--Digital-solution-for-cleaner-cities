@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import API_URL from '../config';
 import { FiInfo, FiHelpCircle, FiMessageSquare } from 'react-icons/fi';
 import './LandingPage.css';
 
@@ -15,7 +16,7 @@ const LandingPage = () => {
     setMessageStatus('');
 
     try {
-        const response = await fetch('http://localhost:5000/api/suggestions', {
+        const response = await fetch(`${API_URL}/api/suggestions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
